@@ -12,6 +12,31 @@ public:
     Estado estado;
 
     Casilla() : estado(Estado::vacia) {}
+
+    // Método para establecer el estado de la casilla
+        void establecer_estado(Estado nuevo_estado) {
+            estado = nuevo_estado;
+        }
+
+        // Método para obtener el estado actual de la casilla
+        Estado obtener_estado() const {
+            return estado;
+        }
+
+        // Método para comprobar si la casilla está vacía
+        bool esta_vacia() const {
+            return estado == Estado::VACIA;
+        }
+
+        // Método para comprobar si la casilla es blanca
+        bool es_blanca() const {
+            return estado == Estado::BLANCA;
+        }
+
+        // Método para comprobar si la casilla es negra
+        bool es_negra() const {
+            return estado == Estado::NEGRA;
+        }
 };
 
 // Clase para representar un jugador
