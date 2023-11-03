@@ -170,13 +170,14 @@ public:
 
 void Jugador::hacer_jugada(Tablero& tablero, int fila, int columna) {
     if (fila < 0 || fila >= Tablero::tamaño || columna < 0 || columna >= Tablero::tamaño) {
-        cout << "Jugada no válida. Fuera de límites del tablero." << endl;
-        return;
-    }
+            cout << "Jugada no valida. Fuera de limites del tablero." << endl;
+            return;
+        }
 
-    if (!tablero.tablero[fila][columna].esta_vacia()) {
-        cout << "Jugada no válida. Casilla ocupada." << endl;
-        return;
+    if (tablero.hacer_jugada(fila, columna, *this)) {
+        cout << "Jugada exitosa." << endl;
+    } else {
+        cout << "Jugada no válida. Intentalo de nuevo." << endl;
     }
 
     int direcciones[8][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
@@ -217,7 +218,7 @@ void Jugador::hacer_jugada(Tablero& tablero, int fila, int columna) {
     if (jugada_valida) {
         tablero.tablero[fila][columna].establecer_estado(Casilla::Estado::blanca);
     } else {
-        cout << "Jugada no válida. No se han capturado fichas del oponente." << endl;
+        cout << "Jugada no valida. No se han capturado fichas del oponente." << endl;
     }
 }
 
@@ -268,7 +269,7 @@ void Juego::jugar_partida() {
             if (tablero.hacer_jugada(fila, columna, jugador_actual)) {
                 turno++;
             } else {
-                cout << "Jugada no válida. Inténtalo de nuevo." << endl;
+                cout << "Jugada no valida. Intentalo de nuevo." << endl;
             }
         } else {
             cout << "El jugador no puede hacer una jugada. Pasando al siguiente turno." << endl;
@@ -307,15 +308,16 @@ string Juego::obtener_fecha_actual() {
 }
 
 int main() {
-    Juego juego;
     char continuar;
 
     do {
+        Juego juego;
         juego.jugar_partida();
         juego.guardar_resultados();
-        cout << "¿Desea jugar otra partida? (S/N): ";
+        cout << "Desea jugar otra partida? (S/N): ";
         cin >> continuar;
     } while (continuar == 'S' || continuar == 's');
 
     return 0;
 }
+
